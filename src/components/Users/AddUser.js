@@ -1,30 +1,30 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-import Card from "../UI/Card";
-import Button from "../UI/Button";
-import classes from "./AddUser.module.css";
+import Card from '../UI/Card';
+import Button from '../UI/Button';
+import classes from './AddUser.module.css';
 
 const AddUser = (props) => {
-  const [enteredUserName, setEnteredUserName] = useState("");
-  const [enteredAge, setEnteredAge] = useState("");
+  const [enteredUsername, setEnteredUsername] = useState('');
+  const [enteredAge, setEnteredAge] = useState('');
+
   const addUserHandler = (event) => {
     event.preventDefault();
-    if (
-      enteredUserName.trim().length === 0 ||
-      enteredAge.trim.length().length === 0
-    ) {
+    if (enteredUsername.trim().length === 0 || enteredAge.trim().length === 0) {
       return;
     }
     if (+enteredAge < 1) {
       return;
     }
-    console.log(enteredUserName, enteredAge);
-    setEnteredUserName("");
-    setEnteredAge("");
+    props.onAddUser(enteredUsername, enteredAge);
+    setEnteredUsername('');
+    setEnteredAge('');
   };
+
   const usernameChangeHandler = (event) => {
-    setEnteredUserName(event.target.value);
+    setEnteredUsername(event.target.value);
   };
+
   const ageChangeHandler = (event) => {
     setEnteredAge(event.target.value);
   };
@@ -36,14 +36,14 @@ const AddUser = (props) => {
         <input
           id="username"
           type="text"
-          value={setEnteredUserName}
+          value={enteredUsername}
           onChange={usernameChangeHandler}
         />
-        <label htmlFor="age">Age in Years</label>
+        <label htmlFor="age">Age (Years)</label>
         <input
           id="age"
           type="number"
-          value={setEnteredAge}
+          value={enteredAge}
           onChange={ageChangeHandler}
         />
         <Button type="submit">Add User</Button>
